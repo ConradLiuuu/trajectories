@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from keras.preprocessing import sequence
 from keras.utils import np_utils
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, Activation, Embedding
+from keras.layers import Dense, LSTM, Activation, Embedding, Reshape
 import tensorflow as tf
 import sys
 
@@ -35,11 +35,15 @@ maxlen = x_train.shape[1]
 n_classes = 4
 
 # onehot encoding
-y_train = np_utils.to_categorical(y_train, 4)
+y_train = np_utils.to_categorical(y_train, n_classes)
+
+rowsss = int(maxlen/3)
+output_dim = 1
 
 # define model
 model = Sequential()
-model.add(Embedding(1000, 3, input_length=maxlen))
+model.add(Embedding(1000, output_dim, input_length=maxlen))
+model.add(Reshape((rowsss,3*output_dim)))
 model.add(LSTM(units=512, activation='tanh', unroll=True, return_sequences=True))
 model.add(LSTM(units=256, activation='tanh', unroll=True, return_sequences=True))
 model.add(LSTM(units=128, activation='tanh', unroll=True, return_sequences=True))
@@ -52,9 +56,11 @@ model.add(Dense(units=n_classes, activation='softmax'))
 # compile model
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
+model.summary()
+
 # training
 batch_size = 400
-training_iters = 2000
+training_iters = 750
 history = model.fit(x_train, y_train, batch_size=batch_size, epochs=training_iters, shuffle=True)
 
 # plot accuracy history

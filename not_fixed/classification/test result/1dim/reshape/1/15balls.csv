@@ -1,0 +1,9 @@
+,top spin,left spin,right spin,back spin
+top speed 5 classification result,239.0,1.0,10.0,0.0
+top speed 6 classification result,242.0,0.0,8.0,0.0
+left speed 5 classification result,5.0,197.0,40.0,8.0
+left speed 6 classification result,3.0,176.0,61.0,10.0
+right speed 5 classification result,31.0,34.0,185.0,0.0
+right speed 6 classification result,27.0,20.0,202.0,1.0
+back speed 5 classification result,1.0,15.0,8.0,226.0
+back speed 6 classification result,0.0,0.0,6.0,244.0
